@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="public/css/styles.css">
+    <title>Puc-Man</title>
+</head>
+<body>
+<div id="gamecontainer">
+    <div id="player">
+        <img id="pac-pac" alt="" src="" width="50vw" height="50vh">
+    </div>
+</div>
+<script
+        src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous">
+</script>
+
+<script src="public/js/script.js"></script>
+<script src="public/js/Map.js"></script>
+<script src="public/js/Entity.js"></script>
+<script src="public/js/Player.js"></script>
+<script type="text/javascript">
+    $(function () {
+        var M = new Map(["public/img/pac-pac.jpeg","public/img/test.gif"]);
+        M.drawMap();
+        var player = new Player();
+        player.init();
+    })
+</script>
+</body>
+</html>
