@@ -8,9 +8,7 @@
 </head>
 <body>
 <div id="gamecontainer">
-    <div id="player">
         <img id="pac-pac" alt="" src="" width="50vw" height="50vh">
-    </div>
 </div>
 <script
         src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous">
@@ -22,11 +20,16 @@
 <script src="public/js/Player.js"></script>
 <script type="text/javascript">
     $(function () {
-        var M = new Map(["public/img/pac-pac.jpeg","public/img/test.gif"]);
+        var M = new Map(["public/img/coinBasD.jpeg","public/img/coinBasG.jpeg","public/img/coinHautD.jpeg","public/img/coinHautG.jpeg","public/img/fondBleu.jpeg"
+        , "public/img/bordCoinBasD.jpeg", "public/img/bordCoinBasG.jpeg", "public/img/bordCoinHautD.jpeg", "public/img/bordCoinHautG.jpeg", "public/img/bordMurHaut.jpeg"
+            , "public/img/bordMurD.jpeg", "public/img/bordMurG.jpeg", "public/img/bordMurBas.jpeg","public/img/MurBas.jpeg","public/img/MurDroite.jpeg","public/img/MurGauche.jpeg",
+            "public/img/MurTotal.jpeg"]);
         M.drawMap();
-        var player = new Player();
+        var player = new Player(45, 44);
         player.init();
     })
+
+
 </script>
 </body>
 </html>

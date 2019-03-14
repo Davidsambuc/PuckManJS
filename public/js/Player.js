@@ -1,11 +1,13 @@
-class Player extends Entity{
+class Player extends Entity {
 
-    constructor() {
-        super();
-        this.src = "public/img/pac-pac.jpeg";
+    constructor(x, y) {
+        super(x, y, "pac-pac");
+        this.src = "public/img/pacmanGauche.gif";
+        $("#pac-pac").attr("src", this.src);
     }
 
     init() {
-        $("#pac-pac").attr("src", this.src);
+        super.init();
     }
+
 }
