@@ -1,10 +1,15 @@
-canvas {
-    width: 5vw;
-    height: 5vh;
+/*canvas {
+    width: 2vw;
+    height: 2vh;
     vertical-align: bottom;
-}
+}*/
 
 img {
-    width: 5vw;
-    height: 5vh;
+    width: 1vw;
+    height: 2vh;
+}
+
+#map {
+    width: 95vw;
+    height: 95vh;
 }

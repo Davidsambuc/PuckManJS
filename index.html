@@ -8,28 +8,91 @@
 </head>
 <body>
 <div id="gamecontainer">
-        <img id="pac-pac" alt="" src="" width="50vw" height="50vh">
+    <canvas id='map' width="950px" height="950px"></canvas>
+    <img id="pac-pac" alt="" src="">
 </div>
 <script
         src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous">
 </script>
 
 <script src="public/js/script.js"></script>
+<script src="public/js/ConverterViewportPx.js"></script>
 <script src="public/js/Map.js"></script>
 <script src="public/js/Entity.js"></script>
 <script src="public/js/Player.js"></script>
 <script type="text/javascript">
+    function gererClavier(event) {
+        var k = event.key;
+        switch(k) {
+            case "ArrowLeft" : // touche gauche
+                player.move(-1,0);
+                player.changeDirection("left");
+                break;
+            case "ArrowUp" : // touche haut
+                player.move(0,-1);
+                player.changeDirection("up");
+                break;
+            case "ArrowRight" : // touche droite
+                player.move(1,0);
+                player.changeDirection("right");
+                break;
+            case "ArrowDown" : // touche bas
+                player.move(0,1);
+                player.changeDirection("down");
+                break;
+        }
+    }
+
     $(function () {
+        const tileset = ["public/img/coinBasD.jpeg", "public/img/coinBasG.jpeg", "public/img/coinHautD.jpeg", "public/img/coinHautG.jpeg", "public/img/fondBleu.jpeg"
+            , "public/img/bordCoinBasD.jpeg", "public/img/bordCoinBasG.jpeg", "public/img/bordCoinHautD.jpeg", "public/img/bordCoinHautG.jpeg", "public/img/bordMurHaut.jpeg"
+            , "public/img/bordMurD.jpeg", "public/img/bordMurG.jpeg", "public/img/bordMurBas.jpeg", "public/img/MurBas.jpeg", "public/img/MurDroite.jpeg", "public/img/MurGauche.jpeg",
+            "public/img/MurTotal.jpeg"];
+        const M = new Map(tileset);
 
-        var M = new Map(["public/img/coinBasD.jpeg","public/img/coinBasG.jpeg","public/img/coinHautD.jpeg","public/img/coinHautG.jpeg","public/img/fondBleu.jpeg"
-        , "public/img/bordCoinBasD.jpeg", "public/img/bordCoinBasG.jpeg", "public/img/bordCoinHautD.jpeg", "public/img/bordCoinHautG.jpeg", "public/img/bordMurHaut.jpeg"
-            , "public/img/bordMurD.jpeg", "public/img/bordMurG.jpeg", "public/img/bordMurBas.jpeg","public/img/MurBas.jpeg","public/img/MurDroite.jpeg","public/img/MurGauche.jpeg",
-            "public/img/MurTotal.jpeg"]);
 
-        M.drawMap();
-        var player = new Player(45, 44);
-        player.init();
-        console.log(M);
+        /**
+         * Make sure that all the images conatained in arr are loaded
+         * @param arr
+         * @returns {{done: done}}
+         */
+        var preLoadImages = function (arr) {
+            var newImages = [], // temporary variable containing loaded images
+                loadedImagesCount = 0; //
+            var postAction = function () {};
+            arr = (typeof arr != "object") ? [arr] : arr; // if a single image is sent, convert it into array
+
+            function imageLoadPost() {
+                loadedImagesCount++;
+                if (loadedImagesCount === arr.length) {
+                    postAction(newImages) // postAction method
+                }
+            }
+            for (var i = 0; i < arr.length; i++) {
+                newImages[i] = new Image();
+                newImages[i].src = arr[i];
+                newImages[i].onload = function () { // call imageLoadPost when image is loaded
+                    imageLoadPost();
+                };
+                newImages[i].onerror = function () { // call imageLoadPost when error occurred because its also an success event which already checked whether mage is available or not
+                    imageLoadPost();
+                }
+            }
+            return { //return blank object with done() method
+                done: function (f) {
+                    postAction = f || postAction // user defined callback method to be called when all images are loaded
+                }
+            }
+        };
+
+        //Load the tileset's images and draw the map
+        preLoadImages(tileset).done(function (tileset) {
+            M.drawMap();
+        });
+
+        player = new Player(30, 30);
+        player.updatePos();
+        document.body.addEventListener("keydown", gererClavier);
     })
 
 

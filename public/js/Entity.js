@@ -5,15 +5,15 @@ class Entity {
         this.y = y;
     }
 
-    init() {
+    updatePos() {
         document.getElementById(this.id).style.position = "absolute";
         document.getElementById(this.id).style.left = this.x + "vw";
         document.getElementById(this.id).style.top = this.y + "vh";
     }
 
     move(x,y) {
-        this.x += 5*x;
-        this.y += 5*y;
-        this.init();
+        this.x += 1*x;
+        this.y += 2*y;
+        this.updatePos();
     }
 }
